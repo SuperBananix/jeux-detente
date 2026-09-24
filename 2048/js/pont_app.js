@@ -21,6 +21,7 @@
 
   var ID_JEU = '2048';
   var CLE_MAJ = 'gameStateMaj';         // horodatage (ms) de la partie stockée ici
+  var CLE_RAZ = 'razVu';                // dernier jeton de remise à zéro reçu du Sheet
   var DELAI_MAX_ATTENTE_MS = 4000;      // sans réponse de l'app : on joue avec le stockage local
 
   window.pontApp = { actif: dansApp, demarrerApresSynchro: function (lancer) { lancer(); } };
@@ -39,7 +40,8 @@
         jeu: ID_JEU,
         etat: sm.storage.getItem(sm.gameStateKey) || '',   // '' = aucune partie en cours
         record: Number(sm.storage.getItem(sm.bestScoreKey)) || 0,
-        majLe: Number(sm.storage.getItem(CLE_MAJ)) || 0
+        majLe: Number(sm.storage.getItem(CLE_MAJ)) || 0,
+        raz: sm.storage.getItem(CLE_RAZ) || ''   // le Sheet ignore un envoi portant un ancien jeton
       }, '*'); // l'origine de l'app Apps Script n'est pas fixe : l'app, elle, vérifie la nôtre
     } catch (e) { /* rien à faire : la sauvegarde locale reste en place */ }
   }
@@ -65,6 +67,17 @@
     // si le navigateur refuse le stockage dans une iframe).
     var st = new LocalStorageManager().storage;
     if (!d || !d.trouve) return;
+
+    // Remise à zéro demandée par un adulte dans le Sheet (colonne F) : le jeton
+    // a changé depuis notre dernière synchronisation → on efface la sauvegarde
+    // de CE navigateur (partie, record), sinon elle ressusciterait l'ancien record.
+    var jeton = typeof d.raz === 'string' ? d.raz : '';
+    if (jeton !== (st.getItem(CLE_RAZ) || '')) {
+      st.removeItem('gameState');
+      st.removeItem('bestScore');
+      st.removeItem(CLE_MAJ);
+      st.setItem(CLE_RAZ, jeton);
+    }
 
     var majServeur = Number(d.majLe) || 0;
     var majLocale = Number(st.getItem(CLE_MAJ)) || 0;
