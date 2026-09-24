@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='fr'>
+	<head>
+		<meta charset="utf-8">
+		<title>Hextris</title>
+		<!-- Copie de Hextris (https://github.com/Hextris/hextris, licence GPL-3, voir LICENSE.md)
+		     adaptée le 24/09/2026 pour l'Espace détente de RevisionApp : textes en français,
+		     publicité, statistiques Google, boutons de partage, liens vers les boutiques et
+		     appels à des serveurs externes retirés ; ajout de js/pont_app.js (record gardé
+		     dans le Google Sheet de l'app). -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
+		<meta name="robots" content="noindex">
+		<link rel="icon" type="image/png" href="favicon.ico">
+		<link rel="stylesheet" href="style/fa/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="style/style.css?v=20260924">
+		<script type='text/javascript' src="vendor/hammer.min.js"></script>
+		<script type='text/javascript' src="vendor/js.cookie.js"></script>
+		<script type='text/javascript' src="vendor/jsonfn.min.js"></script>
+		<script type='text/javascript' src="vendor/keypress.min.js"></script>
+		<script type='text/javascript' src="vendor/jquery.js"></script>
+		<script type='text/javascript' src="js/save-state.js?v=20260924"></script>
+		<script type='text/javascript' src="js/pont_app.js?v=20260924"></script>
+		<script type='text/javascript' src="js/view.js?v=20260924"></script>
+		<script type='text/javascript' src="js/wavegen.js"></script>
+		<script type='text/javascript' src="js/math.js"></script>
+		<script type='text/javascript' src="js/Block.js"></script>
+		<script type='text/javascript' src="js/Hex.js"></script>
+		<script type='text/javascript' src="js/Text.js"></script>
+		<script type='text/javascript' src="js/comboTimer.js"></script>
+		<script type='text/javascript' src="js/checking.js"></script>
+		<script type='text/javascript' src='js/update.js'></script>
+		<script type="text/javascript" src="js/render.js?v=20260924"></script>
+		<script type='text/javascript' src="js/input.js"></script>
+		<script type='text/javascript' src="js/main.js?v=20260924"></script>
+		<script type='text/javascript' src="js/initialization.js?v=20260924"></script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+		<div id="overlay" class="faded overlay"></div>
+		<div id='startBtn' ></div>
+		<div id="helpScreen" class='unselectable'>
+			<div id='inst_main_body'></div>
+		</div>
+		<img id="openSideBar" class='helpText' src="./images/btn_help.svg"/>
+		<div class="faded overlay"></div>
+		<img id="pauseBtn" src="./images/btn_pause.svg"/>
+		<img id='restartBtn' src="./images/btn_restart.svg"/>
+		<div id='HIGHSCORE'>RECORD</div>
+		<div id='highScoreInGameText'>
+			<div id='highScoreInGameTextHeader'>RECORD</div><div id='currentHighScore'>0</div>
+		</div>
+		<div id="gameoverscreen">
+			<div id='container'>
+				<div id='gameOverBox' class='GOTitle'>PERDU !</div>
+				<div id='cScore'>0</div>
+				<div id='highScoresTitle' class='GOTitle'>MEILLEURS SCORES</div>
+				<div class='score'><span class='scoreNum'>1.</span> <div id="1place" style="display:inline;">0</div></div>
+				<div class='score'><span class='scoreNum'>2.</span> <div id="2place" style="display:inline;">0</div></div>
+				<div class='score'><span class='scoreNum'>3.</span> <div id="3place" style="display:inline;">0</div></div>
+			</div>
+			<div id='bottomContainer'>
+				<img id='restart' src='./images/btn_restart.svg' height='57px'>
+				<!-- Conteneur vidé de ses boutons de partage, mais gardé : main.js s'en sert pour placer l'écran de fin. -->
+				<div id='buttonCont'></div>
+			</div>
+		</div>
+	</body>
+</html>
